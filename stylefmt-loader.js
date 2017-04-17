@@ -13,12 +13,8 @@ module.exports = function (source) {
   let resourcePath = this.resourcePath;
   let query = loaderUtils.parseQuery(this.query);
 
-  let stylefmtConf = stylefmt(query.stylefmtConfig ? {
-    configFile: `${process.cwd()}/${query.config}`
-  } : undefined);
-
-  let sortingConf = sorting(query.sortingConfig ?
-    require(`${process.cwd()}/${query.config}`) : {});
+  let stylefmtConf = stylefmt(query.stylefmtConfig ? { configFile: query.stylefmtConfig } : undefined);
+  let sortingConf = sorting(query.sortingConfig ? require(query.sortingConfig) : undefined);
 
   postcss([
     stylefmtConf,
